@@ -58,7 +58,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         final int a = i;
         Student student = mStudentList.get(i);
         //viewHolder.studentID.setText(student.getmID());
@@ -71,6 +71,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
                 intent.putExtra("studentName",mStudentList.get(a).getmName());
                 intent.putExtra("studentClass",mStudentList.get(a).getmClass());
                 intent.putExtra("studentID",mStudentList.get(a).getmID());
+                intent.putExtra("position",String.valueOf(a));
                 view.getContext().startActivity(intent);
             }
         });

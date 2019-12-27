@@ -31,7 +31,7 @@ import ze.example.com.e_school.asynctask.PostAsyncTask;
 import ze.example.com.e_school.constant.Constant;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener, ViewTreeObserver.OnGlobalLayoutListener, TextWatcher {
-    private String TAG = "ifu25";
+    private String TAG = "戴";
 
     private ImageButton mIbNavigationBack;
     private LinearLayout mLlLoginPull;
@@ -66,8 +66,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (a.equals("100")){//200密码错误 300用户不存在
                         new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("SUCCESS")
-                                .setContentText("登录成功")
-                                .setConfirmText("确定")
+                                .setContentText("Login successfully")
+                                .setConfirmText("get it")
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
@@ -79,20 +79,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }else if (a.equals("200")){
                         new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error")
-                                .setConfirmText("确定")
-                                .setContentText("密码错误")
+                                .setConfirmText("cancel")
+                                .setContentText("Wrong account or password")
                                 .show();
                     }else if (a.equals("300")){
                         new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error")
-                                .setConfirmText("确定")
-                                .setContentText("用户不存在")
+                                .setConfirmText("cancel")
+                                .setContentText("Account does not exist")
                                 .show();
                     }else {
                         new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error")
-                                .setConfirmText("确定")
-                                .setContentText("请检查网络连接状态")
+                                .setConfirmText("cancel")
+                                .setContentText("Please check the network connection status")
                                 .show();
                     }
                     a="";
@@ -103,19 +103,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }else if (a.equals("200")){
                         new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error")
-                                .setConfirmText("确定")
+                                .setConfirmText("cancel")
                                 .setContentText("密码错误")
                                 .show();
                     }else if (a.equals("300")){
                         new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error")
-                                .setConfirmText("确定")
+                                .setConfirmText("cancel")
                                 .setContentText("用户不存在")
                                 .show();
                     }else {
                         new SweetAlertDialog(LoginActivity.this,SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("Error")
-                                .setConfirmText("确定")
+                                .setConfirmText("cancel")
                                 .setContentText("请检查网络连接状态")
                                 .show();
                     }
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //登录层、下拉层、其它登录方式层
         mLlLoginLayer = findViewById(R.id.ll_login_layer);
         //导航栏+返回按钮
-        mLayBackBar = findViewById(R.id.ly_retrieve_bar);
+       // mLayBackBar = findViewById(R.id.ly_retrieve_bar);
         mIbNavigationBack = findViewById(R.id.ib_navigation_back);
         //logo
         mIvLoginLogo = findViewById(R.id.iv_login_logo);
@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mTvLoginForgetPwd = findViewById(R.id.tv_login_forget_pwd);
         mTvLoginForgetPwd.setOnClickListener(this);
         //注册点击事件
-        mIbNavigationBack.setOnClickListener(this);
+//        mIbNavigationBack.setOnClickListener(this);
         mEtLoginUsername.setOnClickListener(this);
         mIvLoginUsernameDel.setOnClickListener(this);
         mBtLoginSubmit.setOnClickListener(this);
@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mEtLoginPwd.setOnClickListener(this);
         mIvLoginPwdDel.setOnClickListener(this);
         //注册其它事件
-        mLayBackBar.getViewTreeObserver().addOnGlobalLayoutListener(this);
+       // mLayBackBar.getViewTreeObserver().addOnGlobalLayoutListener(this);
         mEtLoginUsername.setOnFocusChangeListener(this);
         mEtLoginUsername.addTextChangedListener(this);
         mEtLoginPwd.setOnFocusChangeListener(this);
@@ -176,7 +176,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.bt_login_submit:
                 //获取编辑文本内的用户密码
                 String param="userAccount="+mEtLoginUsername.getText().toString().trim()+"&userPassword="+mEtLoginPwd.getText().toString().trim();
-                new PostAsyncTask(param,handler).execute(Constant.URL_Login);
+                new PostAsyncTask(param,handler).execute(Constant.URL_Login);//Constant.URL_Login
                 //判断账号密码正确 登陆时该账号无人使用
 
 
@@ -187,14 +187,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 case R.id.bt_login_register:
                     new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Warm")
-                            .setContentText("不支持注册,请联系管理员")
-                            .setConfirmText("嗯嗯")
+                            .setContentText("Registration is not supported")
+                            .setConfirmText("get it")
                             .show();
                     break;
             case R.id.tv_login_forget_pwd:
                 new SweetAlertDialog(this)
-                        .setTitleText("忘了就忘了滚")
-                        .setConfirmText("脑瘫")
+                        .setTitleText("Function not developed")
+                        .setConfirmText("get it")
                         .show();
                 break;
         }

@@ -21,7 +21,7 @@
         app:met_clearButton="true"
         app:met_floatingLabel="highlight"
         app:met_floatingLabelAlwaysShown="true"
-        app:met_floatingLabelText="Name"
+        app:met_floatingLabelText="Name:"
         app:met_floatingLabelTextSize="20sp"
         app:met_maxCharacters="15" />
 
@@ -33,9 +33,10 @@
         app:met_floatingLabel="highlight"
         app:met_floatingLabelAlwaysShown="true"
 
-        app:met_floatingLabelText="Class"
+        app:met_floatingLabelText="Class:"
         app:met_floatingLabelTextSize="20sp"
-        app:met_maxCharacters="15" />
+        app:met_maxCharacters="15"
+        android:textColorHighlight="#00ff6f"/>
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/detail_id"
@@ -44,7 +45,7 @@
         app:met_clearButton="true"
         app:met_floatingLabel="highlight"
         app:met_floatingLabelAlwaysShown="true"
-        app:met_floatingLabelText="ID"
+        app:met_floatingLabelText="ID:"
         app:met_floatingLabelTextSize="20sp"
         app:met_maxCharacters="15" />
 

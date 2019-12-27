@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -32,7 +33,7 @@ public class InquireFragment extends BaseFragment {
     private EditText queryValue;
     private AutoCompleteTextView limit;
     private Button button;
-    private String[] array = {"姓名","学号","班级"};
+    private String[] array = {"Name","ID","Class"};
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -40,9 +41,14 @@ public class InquireFragment extends BaseFragment {
                 case 1:
                     Log.w("戴","返回到handle的数据"+msg.obj.toString());
                     //跳转到结果页面
-                    Intent intent = new Intent(getContext(),QueryResultActivyty.class);
-                    intent.putExtra("result",msg.obj.toString());
-                    getContext().startActivity(intent);
+                    if (msg.obj.toString().trim().equals("[]")){
+                        Toast.makeText(getContext(),"没有查询到数据",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Intent intent = new Intent(getContext(),QueryResultActivyty.class);
+                        intent.putExtra("result",msg.obj.toString());
+                        getContext().startActivity(intent);
+                    }
+
                     break;
             }
         }
@@ -86,11 +92,11 @@ public class InquireFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 String queryString="null";
-                if (limit.getText().toString().trim().equals("班级")){
+                if (limit.getText().toString().trim().equals("Class")){
                     queryString="?studentClass="+queryValue.getText().toString().trim();
-                }else if(limit.getText().toString().trim().equals("学号")){
+                }else if(limit.getText().toString().trim().equals("ID")){
                     queryString="?studentID="+queryValue.getText().toString().trim();
-                }else if(limit.getText().toString().trim().equals("姓名")){
+                }else if(limit.getText().toString().trim().equals("Name")){
                     queryString="?studentName="+queryValue.getText().toString().trim();
                 }
                 Log.w("戴","url请求地址为:"+Constant.URL_Query+queryString);

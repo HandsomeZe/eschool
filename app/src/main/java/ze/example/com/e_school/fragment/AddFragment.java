@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -39,9 +40,26 @@ public class AddFragment extends BaseFragment {
     EditText stuName;
     EditText stuClass;
     EditText stuID;
-    Handler  mHandler;
+    Handler  mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    String a = msg.obj.toString();
+                    if (msg.obj.toString().trim().equals("200")){
+                        Toast.makeText(getContext(),"added successfully",Toast.LENGTH_SHORT).show();
+                    }else if (msg.obj.toString().trim().equals("300")){
+                        Toast.makeText(getContext(),"failed",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getContext(),"Duplicate student ID",Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 2:
+                    break;
+            }
+        }
+    };
     private MainActivity mActivity;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -113,20 +131,18 @@ public class AddFragment extends BaseFragment {
 
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
-                                final String resCod = response.body().string();
+                                final String resCod = Objects.requireNonNull(response.body()).string();
                                 final String resCod2 = String.valueOf(response.code());
                                 Log.w("戴","resCode = "+resCod);
                                 Log.w("戴","resCod2 = "+resCod2);
-
-                                //改成handle 明天改
-                                if (resCod.equals("200")){
-                                    Toast.makeText(getContext( ),"提交成功",Toast.LENGTH_SHORT).show();
-                                }else if (resCod.equals("300")){
-                                    Toast.makeText(getContext( ),"数据插入失败",Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(getContext( ),"学号重复",Toast.LENGTH_SHORT).show();
+                                Message message = new Message();
+                                message.obj = resCod;
+                                if (resCod2.equals("200")){
+                                    message.what = 1;
+                                }else {
+                                    message.what = 2;
                                 }
-
+                                mHandler.sendMessage(message);
                             }
 
                         });

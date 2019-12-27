@@ -14,6 +14,7 @@ import com.cazaea.sweetalert.SweetAlertDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -35,6 +36,7 @@ public class StudentDetailActivity extends AppCompatActivity {
     String studentID="";
     String studentName="";
     String studentClass="";
+    String position = "";
 
     Handler handler = new Handler(){
         @Override
@@ -42,12 +44,18 @@ public class StudentDetailActivity extends AppCompatActivity {
             switch (msg.what){
                 case 1:
                     Toast.makeText(StudentDetailActivity.this,"Deleted successfully",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(StudentDetailActivity.this,QueryResultActivyty.class);
+                    intent.putExtra("position",position);
+                    //setResult(200,intent);
+                    //startActivityForResult(intent,200);
+                    finish();
                     break;
                 case 2:
                     Toast.makeText(StudentDetailActivity.this,"Database connection failed",Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
                     Toast.makeText(StudentDetailActivity.this,"Revised sucessfully",Toast.LENGTH_SHORT).show();
+                    finish();
                     break;
             }
         }
@@ -61,8 +69,10 @@ public class StudentDetailActivity extends AppCompatActivity {
         studentID = intent.getStringExtra("studentID");
         studentName = intent.getStringExtra("studentName");
         studentClass = intent.getStringExtra("studentClass");
+        position = intent.getStringExtra("position");
 
-        Log.w("戴","studentName = "+studentName+"studentID = "+studentID);
+
+        Log.w("戴","studentName = "+studentName+"studentID = "+studentID+"position = "+position);
         init();
     }
 
@@ -138,7 +148,7 @@ public class StudentDetailActivity extends AppCompatActivity {
 
                                         @Override
                                         public void onResponse(Call call, Response response) throws IOException {
-                                            String body = response.body().string();
+                                            String body = Objects.requireNonNull(response.body()).string();
                                             String code = String.valueOf(response.code());
                                             Message message = new Message();
                                             message.obj = body;

@@ -1,6 +1,7 @@
 package ze.example.com.e_school.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ze.example.com.e_school.R;
 import ze.example.com.e_school.SlideRecyclerView;
 import ze.example.com.e_school.adapter.StudentAdapter;
@@ -23,6 +23,7 @@ import ze.example.com.e_school.constant.Student;
 public class QueryResultActivyty extends AppCompatActivity {
     //创建适配器时传入的学生集合
     private List<Student> studentList = new ArrayList<>();
+    String position="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,5 +54,29 @@ public class QueryResultActivyty extends AppCompatActivity {
         } catch (JSONException e) {
             Log.w("戴",e.toString());
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            if (resultCode==200){
+                position = data.getStringExtra("position");
+                Log.w("戴","详情页面返回的position="+position);
+            }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        String position = intent.getStringExtra("position");
+        Log.w("戴","position = "+ position);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 }
